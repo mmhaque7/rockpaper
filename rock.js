@@ -1,21 +1,21 @@
-let humanScore = 0
-let computerScore = 0
-let max = 3
-let gamesPlayed = 0
+let humanScore = 0;
+let computerScore = 0;
+let max = 3;
+let gamesPlayed = 0;
 /**
  * Generates a random number between 0 and max and returns the corresponding
  * rock, paper, or scissors value as a console log.
  *  *
  */
 function getComputerChoice() {
-  let num = Math.floor(Math.random() * max)
+  let num = Math.floor(Math.random() * max);
 
   if (num == 0) {
-    return "rock"
+    return "rock";
   } else if (num == 1) {
-    return "paper"
+    return "paper";
   } else {
-    return "scissors"
+    return "scissors";
   }
 }
 
@@ -24,8 +24,8 @@ function getComputerChoice() {
  *
  */
 function getHumanChoice() {
-  let choice = prompt("Please enter a choice.\n(i.e. Rock, Paper, Scissors)")
-  return choice.toLowerCase()
+  let choice = prompt("Please enter a choice.\n(i.e. Rock, Paper, Scissors)");
+  return choice.toLowerCase();
 }
 
 /**
@@ -41,8 +41,17 @@ function getHumanChoice() {
  */
 function playRound(humanChoice, computerChoice) {
   if (humanChoice == "rock" && computerChoice == "scissors") {
-    humanScore += 1
-  } else if (humanChoice == "") {
+    humanScore += 1;
+  } else if (humanChoice == "scissors" && computerChoice == "paper") {
+    humanScore += 1;
+  } else if (humanChoice == "paper" && computerChoice == "rock") {
+    humanScore += 1;
+  } else if (computerChoice == "rock" && humanChoice == "scissors") {
+    computerScore += 1;
+  } else if (computerChoice == "scissors" && humanChoice == "paper") {
+    computerScore += 1;
+  } else {
+    computerChoice += 1;
   }
 }
 
@@ -53,12 +62,17 @@ function playRound(humanChoice, computerChoice) {
  */
 function playGame() {
   for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice()
-    const computerSelection = getComputerChoice()
-    playRound(humanSelection, computerSelection)
-    gamesPlayed += 1
-    displayGame()
-    console.log("Human:" + humanSelection + " computer: " + computerSelection)
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+    if (humanScore > computerScore) {
+      console.log("Human wins this round!");
+    } else {
+      console.log("Computer wins this round");
+    }
+    gamesPlayed += 1;
+
+    console.log("Human:" + humanSelection + " computer: " + computerSelection);
   }
 }
 /**
@@ -70,20 +84,21 @@ function playGame() {
  * It also logs the total number of rounds played (gamesPlayed).
  */
 function displayGame() {
-  console.log("Results")
-  console.log("--------------------")
+  console.log("Results");
+  console.log("--------------------");
   if (humanScore > computerScore) {
-    console.log("You Win!")
+    console.log("You Win!");
   } else if (computerScore > humanScore) {
-    console.log("You Lose!")
+    console.log("You Lose!");
   } else {
-    console.log("It's a Draw!")
+    console.log("It's a Draw!");
   }
-  console.log("Your Score: " + humanScore)
-  console.log("Computer Score: " + computerScore)
-  console.log("Games Played:" + gamesPlayed)
+  console.log("Your Score: " + humanScore);
+  console.log("Computer Score: " + computerScore);
+  console.log("Games Played:" + gamesPlayed);
 
-  console.log("--------------------")
+  console.log("--------------------");
 }
 
-playGame()
+playGame();
+displayGame();
