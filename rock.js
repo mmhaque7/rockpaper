@@ -1,104 +1,108 @@
-let humanScore = 0;
-let computerScore = 0;
-let max = 3;
-let gamesPlayed = 0;
-/**
- * Generates a random number between 0 and max and returns the corresponding
- * rock, paper, or scissors value as a console log.
- *  *
- */
+let playerScore = 0
+let computerScore = 0
+let max = 3
+let gamesPlayed = 0
+let roundwinner = ""
+
+const rockButton = document.getElementById("rockBtn")
+const paperButton = document.getElementById("paperBtn")
+const scissorsButton = document.getElementById("scissorsBtn")
+const scoreRound = document.getElementById("scoreRound")
+const humanSign = document.getElementById("humanSign")
+const computerSign = document.getElementById("computerSign")
+const humanText = document.getElementById("humanText")
+const computerText = document.getElementById("computerText")
+
+rockButton.addEventListener("click", () => handleClick("rock"))
+paperButton.addEventListener("click", () => handleClick("papper"))
+scissorsButton.addEventListener("click", () => handleClick("scissors"))
+
+function handleClick(playerChoice) {
+  if (roundOver()) {
+    setFinalMessage()
+    return
+  }
+  const computerChoice = getComputerChoice()
+  playRound(playerChoice, computerChoice)
+  updateScore()
+  showChoices(playerChoice, computerChoice)
+  console.log(
+    "Player Choice " + playerChoice + " Computer Choice: " + computerChoice
+  )
+}
+
+function roundOver() {
+  return playerScore === 5 || computerScore === 5
+}
+function playRound(playerChoice, computerChoice) {
+  if (
+    (playerChoice === "rock" && computerChoice === "scissors") ||
+    (playerChoice === "scissors" && computerChoice === "paper") ||
+    (playerChoice === "paper" && computerChoice === "rock")
+  ) {
+    playerScore += 1
+    roundwinner = "player"
+  } else if (
+    (computerChoice === "rock" && playerChoice === "scissors") ||
+    (computerChoice === "scissors" && playerChoice === "paper") ||
+    (computerChoice === "paper" && playerChoice === "rock")
+  ) {
+    computerScore += 1
+    roundwinner = "computer"
+  } else {
+    roundwinner = "tie"
+  }
+}
+
+function updateScore() {
+  if (roundwinner === "tie") {
+    scoreRound.textContent = "It's a Tie"
+  } else if (roundwinner === "player") {
+    scoreRound.textContent = "You are the Winner!"
+  } else {
+    scoreRound.textContent = "You loose this round, Computer won!"
+  }
+  humanText.textContent = `Player: ${playerScore}`
+  computerText.textContent = `Computer: ${computerScore}`
+}
 function getComputerChoice() {
-  let num = Math.floor(Math.random() * max);
+  let num = Math.floor(Math.random() * max)
 
   if (num == 0) {
-    return "rock";
+    return "rock"
   } else if (num == 1) {
-    return "paper";
+    return "paper"
   } else {
-    return "scissors";
+    return "scissors"
   }
 }
 
-/**
- * Asks the user to select a choice and logs it to the console.
- *
- */
-function getHumanChoice() {
-  let choice = prompt("Please enter a choice.\n(i.e. Rock, Paper, Scissors)");
-  return choice.toLowerCase();
-}
+function showChoices(playerChoice, computerChoice) {
+  switch (playerChoice) {
+    case "rock":
+      humanSign.textContent = "✊🏾"
+      break
+    case "paper":
+      humanSign.textContent = "🖐🏾"
+      break
+    case "scissors":
+      humanSign.textContent = "✌🏾"
+      break
+  }
 
-/**
- * Determines the winner of a single round of Rock Paper Scissors.
- *
- * Takes two parameters, humanChoice and computerChoice, which are strings
- * representing the human and computer's respective selections.
- *
- * If the computer wins, adds 1 to computerScore and logs a message
- * indicating the computer won.  If the human wins, adds 1 to humanScore and
- * logs a message indicating the human won.  If the two selections are
- * equal, logs a message indicating a tie and does not change either score.
- */
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice == "rock" && computerChoice == "scissors") {
-    humanScore += 1;
-  } else if (humanChoice == "scissors" && computerChoice == "paper") {
-    humanScore += 1;
-  } else if (humanChoice == "paper" && computerChoice == "rock") {
-    humanScore += 1;
-  } else if (computerChoice == "rock" && humanChoice == "scissors") {
-    computerScore += 1;
-  } else if (computerChoice == "scissors" && humanChoice == "paper") {
-    computerScore += 1;
-  } else {
-    computerChoice += 1;
+  switch (computerChoice) {
+    case "rock":
+      computerSign.textContent = "✊🏾"
+      break
+    case "paper":
+      computerSign.textContent = "✌🏾"
+      break
+    case "scissors":
+      computerSign.textContent = "✌🏾"
   }
 }
 
-/**
- * Plays 5 rounds of Rock Paper Scissors.  After each round, it updates the
- * score and displays the current score.  After all 5 rounds are played, it
- * displays the final score.
- */
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    if (humanScore > computerScore) {
-      console.log("Human wins this round!");
-    } else {
-      console.log("Computer wins this round");
-    }
-    gamesPlayed += 1;
-
-    console.log("Human:" + humanSelection + " computer: " + computerSelection);
-  }
+function setFinalMessage() {
+  const finalMessage = playerScore > computerScore ? "You won!" : "You lost..."
+  endgameMsg.textContent = finalMessage
 }
-/**
- * Logs the current score of the game to the console.
- *
- * This function is called at the end of each round of the game.
- * It logs the current score of the game (humanScore vs. computerScore),
- * and whether the user is currently winning, losing, or tied.
- * It also logs the total number of rounds played (gamesPlayed).
- */
-function displayGame() {
-  console.log("Results");
-  console.log("--------------------");
-  if (humanScore > computerScore) {
-    console.log("You Win!");
-  } else if (computerScore > humanScore) {
-    console.log("You Lose!");
-  } else {
-    console.log("It's a Draw!");
-  }
-  console.log("Your Score: " + humanScore);
-  console.log("Computer Score: " + computerScore);
-  console.log("Games Played:" + gamesPlayed);
-
-  console.log("--------------------");
-}
-
-playGame();
-displayGame();

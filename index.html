@@ -5,10 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="rock.js"></script>
+    <script src="rock.js" defer> </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="./favicon.icogit ">
 </head>
 
 <body>
+    <header class="header">
+        <h1 class="title">ROCK, PAPPER, SCISSORS</h1>
+    </header>
+    <main>
+        <div class="rules">
+            <p class="rules-text">Rock, Paper, Scissors is a simple hand game where two players simultaneously form one
+                of three shapes with their hands.
+                Rock crushes Scissors, Scissors cuts Paper, and Paper covers Rock. If both players choose the same
+                shape, it's a tie.
+                The game continues until a winner is determined.</p>
+        </div>
+        <div class="score-container">
+            <div class="choice">
+                <div id="humanSign"></div>
+                <div id="computerSign"></div>
+            </div>
+            <div class="scoreMsg">
+                <p id="scoreRound" class="round"></p>
+                <p id="humanText" class="human-test"></p>
+                <p id="computerText" class="computer-text"> </p>
+
+            </div>
+
+            <div id="endgameMsg" class="end-msg"></div>
+        </div>
+
+        <div class="buttons">
+            <button id="rockBtn" class="btn-selection">✊🏾</button>
+            <button id="paperBtn" class="btn-selection">🖐🏾</button>
+            <button id="scissorsBtn" class="btn-selection">✌🏾</button>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy;
+            <script>document.write(new Date().getFullYear())</script> Mehedi
+        </p>
+    </footer>
+</body>
 
 
 </html>
